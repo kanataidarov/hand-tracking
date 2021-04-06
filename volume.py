@@ -1,3 +1,5 @@
+# Gesture Volume Control (works on Mac only)
+
 import cv2 
 import time 
 import numpy as np 
