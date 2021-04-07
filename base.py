@@ -41,13 +41,13 @@ class HandDetector():
 
     return lms 
 
-  def updateFps(self, img): 
+  def UpdateFps(self, img): 
     self.cTime = time.time()
     fps = 1/(self.cTime-self.pTime)
     self.pTime = self.cTime
     cv2.putText(img, str(int(fps)), (20, 40), cv2.FONT_HERSHEY_PLAIN, 3, (255,0,0), 3)
 
-def initCam(): 
+def InitCam(): 
   wCam, hCam = 800, 600 
   cap = cv2.VideoCapture(0)
   cap.set(3, wCam)
@@ -62,7 +62,7 @@ def main():
     success, img = cap.read() 
     img = detector.findHands(img)
     lms = detector.findPosition(img)
-    detector.updateFps(img)
+    detector.UpdateFps(img)
 
     cv2.imshow("Hand Tracker", img)
     cv2.waitKey(1)

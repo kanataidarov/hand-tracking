@@ -8,7 +8,7 @@ import math
 import osascript as osa
 
 detector = base.HandDetector() 
-cap = base.initCam() 
+cap = base.InitCam() 
 
 def findLen(img, lms): 
     length = 0
@@ -37,7 +37,7 @@ while True:
     success, img = cap.read() 
 
     detector.findHands(img)
-    detector.updateFps(img)
+    detector.UpdateFps(img)
 
     lms = detector.findPosition(img, shouldDraw=False)
     length = findLen(img, lms)
