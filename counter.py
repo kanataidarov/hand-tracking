@@ -19,7 +19,7 @@ for imPath in fingerList:
 tips = [4,8,12,16,20]
 
 while True: 
-    success, img = cap.read() 
+    _, img = cap.read() 
     detector.UpdateFps(img)
     img = detector.findHands(img)
     lms = detector.findPosition(img)

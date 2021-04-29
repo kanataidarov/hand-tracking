@@ -47,8 +47,7 @@ class HandDetector():
     self.pTime = self.cTime
     cv2.putText(img, str(int(fps)), (20, 40), cv2.FONT_HERSHEY_PLAIN, 3, (255,0,0), 3)
 
-def InitCam(): 
-  wCam, hCam = 800, 600 
+def InitCam(wCam = 800, hCam = 600): 
   cap = cv2.VideoCapture(0)
   cap.set(3, wCam)
   cap.set(4, hCam) 
