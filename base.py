@@ -1,70 +1,50 @@
 import cv2
-import mediapipe as mp 
 import time 
 
-class HandDetector(): 
-  def __init__(self, mode=False, maxHands=2, detectConf=.5, trackConf=.5):
-    self.cTime = 0
-    self.pTime = 0
+# Base class for CV 
+class Base(): 
 
+  def __init__(self, mode=False, maxHands=2, detectConf=.5, trackConf=.5):
+    self.COLORS = {'PURPLE':(255,0,255), 'GREEN':(0,255,0), 'RED':(0,0,255), 
+                  'CYAN':(255,255,0), 'BLUE':(255,0,0), 'YELLOW':(50,255,255)}
+
+    self.pTime = 0
     self.mode = mode 
     self.maxHands = maxHands
     self.detectConf = detectConf
     self.trackConf = trackConf 
 
-    self.mpHands = mp.solutions.hands 
-    self.hands = self.mpHands.Hands(self.mode, self.maxHands, self.detectConf, self.trackConf)
-    self.mpDraw = mp.solutions.drawing_utils
-
-  def findHands(self, img, shouldDraw=True): 
-    imgRgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
-    self.results = self.hands.process(imgRgb)
-
-    if self.results.multi_hand_landmarks: 
-      for handLms in self.results.multi_hand_landmarks: 
-        if shouldDraw: 
-          self.mpDraw.draw_landmarks(img, handLms, self.mpHands.HAND_CONNECTIONS)
-    
-    return img
-
-  def findPosition(self, img, handNo=0, shouldDraw=True):
-    lms = []
-    if self.results.multi_hand_landmarks: 
-      myHand = self.results.multi_hand_landmarks[handNo]
-      for id, lm in enumerate(myHand.landmark): 
-        h,w,c = img.shape
-        cx, cy = int(lm.x*w), int(lm.y*h)
-        lms.append([id, cx, cy])
-
-        if shouldDraw:
-          cv2.circle(img, (cx,cy), 9, (255,0,0), cv2.FILLED) 
-
-    return lms 
-
+  # Show FPS counter 
   def UpdateFps(self, img): 
-    self.cTime = time.time()
-    fps = 1/(self.cTime-self.pTime)
-    self.pTime = self.cTime
-    cv2.putText(img, str(int(fps)), (20, 40), cv2.FONT_HERSHEY_PLAIN, 3, (255,0,0), 3)
+    cTime = time.time()
+    fps = 1/(cTime-self.pTime)
+    self.pTime = cTime
+    cv2.putText(img, str(int(fps)), (20, 40), cv2.FONT_HERSHEY_PLAIN, 3, self.COLORS['BLUE'], 3)
 
-def InitCam(wCam = 800, hCam = 600): 
-  cap = cv2.VideoCapture(0)
-  cap.set(3, wCam)
-  cap.set(4, hCam) 
-  return cap 
+  # Initializes video capture device 
+  def InitCam(self, wCam = 800, hCam = 600): 
+    cap = cv2.VideoCapture(0)
+    cap.set(3, int(wCam))
+    cap.set(4, int(hCam)) 
+    return cap 
+
+  # Releases video capture device 
+  def ReleaseCam(self, cap): 
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+      cap.release()
+      cv2.destroyAllWindows()
+
 
 def main(): 
-  cap = initCam()
-  detector = HandDetector()
+  base = Base()
+  cap = base.InitCam()
 
   while True: 
     success, img = cap.read() 
-    img = detector.findHands(img)
-    lms = detector.findPosition(img)
-    detector.UpdateFps(img)
+    base.UpdateFps(img)
 
-    cv2.imshow("Hand Tracker", img)
-    cv2.waitKey(1)
+    cv2.imshow("Base Detection", img)
+    base.ReleaseCam(cap)
 
 if __name__ == "__main__": 
   main() 

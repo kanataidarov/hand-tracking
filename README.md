@@ -8,3 +8,4 @@ Hand Tracking project using Google Mediapipe.
 ## Projects implemented 
 - volume.py - Gesture Volume Control 
 - counter.py - Finger Counter 
+- mouse.py - Virtual On-screen Mouse 
