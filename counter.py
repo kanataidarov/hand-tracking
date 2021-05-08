@@ -5,11 +5,12 @@ import time
 import os 
 import hand
 
+fingersFolder = "img/fingers"
+
 def main(): 
     detector = hand.HandDetector()
     cap = detector.InitCam()
     
-    fingersFolder = "fingers"
     fingerList = os.listdir(fingersFolder)
     fingerList.sort()
     overlays = []

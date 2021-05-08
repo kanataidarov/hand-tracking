@@ -1,11 +1,12 @@
 # Hand Tracking projects 
-Hand Tracking project using Google Mediapipe. 
+Hand Tracking project using Google Mediapipe.
 
 ## Libraries used 
 - OpenCV
-- Mediapipe by Google 
+- Mediapipe by Google
 
 ## Projects implemented 
-- volume.py - Gesture Volume Control 
+- volume.py - Gesture Volume Control
 - counter.py - Finger Counter 
 - mouse.py - Virtual On-screen Mouse 
+- painter.py - On-screen painter with finger  

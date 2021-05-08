@@ -6,7 +6,8 @@ class Base():
 
   def __init__(self, mode=False, maxHands=2, detectConf=.5, trackConf=.5):
     self.COLORS = {'PURPLE':(255,0,255), 'GREEN':(0,255,0), 'RED':(0,0,255), 
-                  'CYAN':(255,255,0), 'BLUE':(255,0,0), 'YELLOW':(50,255,255)}
+                  'CYAN':(255,255,0), 'BLUE':(255,0,0), 'YELLOW':(50,255,255),
+                  'BLACK':(0,0,0), 'WHITE':(255,255,255)}
 
     self.pTime = 0
     self.mode = mode 

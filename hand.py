@@ -33,9 +33,9 @@ class HandDetector(base.Base):
 
   # Checks which fingers up 
   def FingersUp(self, lms): 
-    fingers = []
     tips = [4,8,12,16,20] # Thumb and pointies 
 
+    fingers = []
     if (len(lms)>20):
       # Left Thump
       if (lms[tips[0]][1]<lms[tips[0]-1][1]): 
@@ -96,7 +96,7 @@ def main():
   cap = detector.InitCam()
 
   while True: 
-    success, img = cap.read() 
+    _, img = cap.read() 
     detector.UpdateFps(img)
     lms = detector.FindHandLandmarks(img)
     fingers = detector.FingersUp(lms)
