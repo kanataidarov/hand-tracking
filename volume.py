@@ -1,7 +1,6 @@
 # Gesture Volume Control (Mac only)
 
 import cv2 
-import time 
 import numpy as np 
 import hand 
 import osascript as osa
@@ -36,7 +35,7 @@ def main():
 
     while True: 
         _, img = cap.read() 
-        img = cv2.resize(img, (800, 530))
+        # img = cv2.resize(img, (800, 530))
         detector.UpdateFps(img)
 
         # Find hand landmarks  
